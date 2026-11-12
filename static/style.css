@@ -1,0 +1,199 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f7f8fa;
+    color: #202830;
+    font: 16px/1.5 Arial, sans-serif;
+}
+
+a {
+    color: #174d7c;
+}
+
+.container {
+    width: 92%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.site-header {
+    background: #174d7c;
+    color: white;
+    padding-top: 16px;
+}
+
+.site-name {
+    margin: 0 0 8px;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    gap: 4px;
+}
+
+nav a {
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+}
+
+nav a:hover,
+nav a[aria-current="page"] {
+    border-bottom-color: white;
+}
+
+main {
+    padding: 26px 0 40px;
+}
+
+h1 {
+    margin: 0 0 18px;
+    font-size: 26px;
+}
+
+h2 {
+    margin: 24px 0 10px;
+    font-size: 19px;
+}
+
+.page-heading,
+.totals,
+.filter,
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+.page-heading {
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.page-heading h1 {
+    margin: 0;
+}
+
+.total {
+    background: white;
+    border: 1px solid #c6cdd4;
+    padding: 12px 16px;
+    min-width: 180px;
+}
+
+.total strong {
+    display: block;
+    font-size: 24px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th,
+td {
+    border: 1px solid #c6cdd4;
+    padding: 9px 12px;
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    background: #edf0f3;
+}
+
+.number {
+    text-align: right;
+}
+
+.actions {
+    width: 1%;
+    white-space: nowrap;
+}
+
+.actions form {
+    display: inline-block;
+}
+
+button,
+.button {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid #174d7c;
+    border-radius: 3px;
+    background: #174d7c;
+    color: white;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button:hover,
+.button:hover {
+    text-decoration: underline;
+}
+
+.secondary {
+    background: white;
+    border-color: #8d9aa6;
+    color: #174d7c;
+}
+
+.danger {
+    background: white;
+    border-color: #ad7777;
+    color: #852d2d;
+}
+
+.filter {
+    margin-bottom: 14px;
+}
+
+.entry-form {
+    max-width: 500px;
+}
+
+.entry-form label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+input,
+textarea,
+select {
+    max-width: 100%;
+    padding: 7px 9px;
+    border: 1px solid #8d9aa6;
+    border-radius: 3px;
+    background: white;
+    color: inherit;
+    font: inherit;
+}
+
+.entry-form input,
+.entry-form textarea,
+.entry-form select {
+    width: 100%;
+    margin-bottom: 14px;
+}
+
+.error {
+    border: 1px solid #ad7777;
+    padding: 8px 12px;
+    background: white;
+    color: #852d2d;
+}

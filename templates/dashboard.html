@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | Quản lý sách{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+<div class="totals">
+    <div class="total">
+        <a href="{{ url_for('categories') }}">Tổng số danh mục</a>
+        <strong>{{ total_categories }}</strong>
+    </div>
+    <div class="total">
+        <a href="{{ url_for('books') }}">Tổng số sách</a>
+        <strong>{{ total_books }}</strong>
+    </div>
+</div>
+
+<h2>Số sách theo danh mục</h2>
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr><th scope="col">Danh mục</th><th scope="col" class="number">Số sách</th></tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr><td>{{ category.name }}</td><td class="number">{{ category.book_count }}</td></tr>
+            {% else %}
+            <tr><td colspan="2">Chưa có danh mục.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

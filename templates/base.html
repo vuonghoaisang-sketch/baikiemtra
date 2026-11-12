@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Quản lý sách{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <p class="site-name">Quản lý sách</p>
+            <nav aria-label="Điều hướng chính">
+                <a href="{{ url_for('dashboard') }}"{% if request.endpoint == 'dashboard' %} aria-current="page"{% endif %}>Dashboard</a>
+                <a href="{{ url_for('categories') }}"{% if request.endpoint == 'categories' %} aria-current="page"{% endif %}>Danh mục</a>
+                <a href="{{ url_for('books') }}"{% if request.endpoint == 'books' %} aria-current="page"{% endif %}>Sách</a>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
