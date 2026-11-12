@@ -1,29 +1,92 @@
 {% extends "base.html" %}
 {% block title %}Dashboard | Quản lý sách{% endblock %}
 {% block content %}
-<h1>Dashboard</h1>
-<div class="totals">
+<div class="page-heading">
+    <h1>Dashboard</h1>
+    <div class="form-actions">
+        <a class="button secondary" href="{{ url_for('category_form') }}">Thêm danh mục</a>
+        <a class="button" href="{{ url_for('book_form') }}">Thêm sách</a>
+    </div>
+</div>
+<div class="totals dashboard-totals">
     <div class="total">
         <a href="{{ url_for('categories') }}">Tổng số danh mục</a>
         <strong>{{ total_categories }}</strong>
     </div>
     <div class="total">
-        <a href="{{ url_for('books') }}">Tổng số sách</a>
+        <a href="{{ url_for('books') }}">Tổng số đầu sách</a>
         <strong>{{ total_books }}</strong>
+    </div>
+    <div class="total">
+        Tổng số cuốn trong kho
+        <strong>{{ total_quantity }}</strong>
+    </div>
+    <div class="total">
+        Giá trị tồn kho
+        <strong>{{ '%.2f'|format(inventory_value) }} đ</strong>
     </div>
 </div>
 
-<h2>Số sách theo danh mục</h2>
+<h2>Quản lý danh mục</h2>
 <div class="table-wrapper">
     <table>
         <thead>
-            <tr><th scope="col">Danh mục</th><th scope="col" class="number">Số sách</th></tr>
+            <tr>
+                <th scope="col">Tên danh mục</th>
+                <th scope="col" class="number">Số đầu sách</th>
+                <th scope="col" class="number">Số cuốn trong kho</th>
+                <th scope="col">Thao tác</th>
+            </tr>
         </thead>
         <tbody>
             {% for category in categories %}
-            <tr><td>{{ category.name }}</td><td class="number">{{ category.book_count }}</td></tr>
+            <tr>
+                <td>{{ category.name }}</td>
+                <td class="number">{{ category.book_count }}</td>
+                <td class="number">{{ category.total_quantity }}</td>
+                <td class="actions">
+                    <a class="button secondary" href="{{ url_for('category_detail', id=category.id) }}">Xem chi tiết</a>
+                    <a class="button secondary" href="{{ url_for('category_form', id=category.id) }}">Sửa</a>
+                </td>
+            </tr>
             {% else %}
-            <tr><td colspan="2">Chưa có danh mục.</td></tr>
+            <tr><td colspan="4">Chưa có danh mục.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="page-heading dashboard-books-heading">
+    <h2>Sách thêm gần đây</h2>
+    <a href="{{ url_for('books') }}">Xem tất cả sách</a>
+</div>
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Tên sách</th>
+                <th scope="col">Tác giả</th>
+                <th scope="col">Danh mục</th>
+                <th scope="col" class="number">Giá (đ)</th>
+                <th scope="col" class="number">Số lượng</th>
+                <th scope="col">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in recent_books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author or '' }}</td>
+                <td>{{ book.category_name }}</td>
+                <td class="number">{{ book.price }}</td>
+                <td class="number">{{ book.quantity }}</td>
+                <td class="actions">
+                    <a class="button secondary" href="{{ url_for('book_detail', id=book.id) }}">Xem chi tiết</a>
+                    <a class="button secondary" href="{{ url_for('book_form', id=book.id) }}">Sửa</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6">Chưa có sách nào</td></tr>
             {% endfor %}
         </tbody>
     </table>

@@ -29,10 +29,26 @@ BOOKS_WITH_CATEGORY = """
 def dashboard():
     with closing(get_connection()) as connection:
         total_categories = connection.execute("SELECT COUNT(*) FROM categories").fetchone()[0]
-        total_books = connection.execute("SELECT COUNT(*) FROM books").fetchone()[0]
-        categories = connection.execute(CATEGORY_COUNTS).fetchall()
+        total_books, total_quantity, inventory_value = connection.execute("""
+            SELECT COUNT(*), COALESCE(SUM(quantity), 0),
+                   COALESCE(SUM(price * quantity), 0)
+            FROM books
+        """).fetchone()
+        categories = connection.execute("""
+            SELECT categories.id, categories.name, COUNT(books.id) AS book_count,
+                   COALESCE(SUM(books.quantity), 0) AS total_quantity
+            FROM categories
+            LEFT JOIN books ON books.category_id = categories.id
+            GROUP BY categories.id
+            ORDER BY categories.name
+        """).fetchall()
+        recent_books = connection.execute(
+            BOOKS_WITH_CATEGORY + " ORDER BY books.id DESC LIMIT 5"
+        ).fetchall()
     return render_template("dashboard.html", total_categories=total_categories,
-                           total_books=total_books, categories=categories)
+                           total_books=total_books, total_quantity=total_quantity,
+                           inventory_value=inventory_value, categories=categories,
+                           recent_books=recent_books)
 
 
 @app.get("/categories")
